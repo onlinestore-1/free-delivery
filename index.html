@@ -258,14 +258,10 @@ function openProduct(id){
  location.href="product.html";
 }
 
-function buyNow(product) {
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-    orders.push(product);
-    localStorage.setItem("orders", JSON.stringify(orders));
-    window.location.href = "order.html";
+function buyNow(id) {
+  localStorage.setItem("pid",id);
+  location.href="product.html";
 }
-
-
 
 function openMenu(){
  document.getElementById("drawer").style.left="0";
