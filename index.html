@@ -259,29 +259,10 @@ function openProduct(id){
 }
 
 function buyNow(id){
-  const product = products.find(p => p.id === id);
-
-  // Save order
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-  orders.push({
-    ...product,
-    date: new Date().toLocaleString()
-  });
-  localStorage.setItem("orders", JSON.stringify(orders));
-
-  // Also add to cart
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const exists = cart.find(p => p.id === id);
-  if(exists){
-    exists.qty += 1;
-  }else{
-    cart.push({...product, qty:1});
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  // Go to orders page
-  location.href = "orders.html";
+  localStorage.setItem("pid",id);
+  location.href="product.html";
 }
+
 
 function openMenu(){
  document.getElementById("drawer").style.left="0";
