@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product</title>
+<style>
+  body{
+ margin:0;
+ font-family:Arial;
+ background:#f1f3f6;
+}
+
+.header{
+ display:flex;
+ padding:10px;
+ background:#2874f0;
+ gap:10px;
+}
+
+.header input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+
+.cart-icon{
+ color:white;
+ font-size:22px;
+}
+
+.slider img{
+ width:100%;
+ display:none;
+}
+
+.slider img:first-child{display:block;}
+
+.categories{
+ display:flex;
+ overflow-x:auto;
+ background:#fff;
+ padding:10px;
+ gap:15px;
+}
+
+.categories div{
+ min-width:90px;
+ text-align:center;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+
+.card{
+ background:#fff;
+ padding:10px;
+ position:relative;
+ border-radius:6px;
+}
+
+.card img{
+ width:100%;
+}
+
+.wishlist{
+ position:absolute;
+ top:8px;
+ right:8px;
+ font-size:20px;
+ color:#999;
+}
+
+.wishlist.active{
+ color:red;
+}
+
+.buy{
+ background:#ff9f00;
+ color:#000;
+ padding:6px;
+ border:none;
+ width:100%;
+ margin-top:5px;
+}
+</style>
+</head>
+<body>
+
+<div id="details"></div>
+
+<h3>You May Also Like</h3>
+<div id="related" class="grid"></div>
+
+<script>
+  const products=[
+ {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200",cat:"Clothes"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200",cat:"Clothes"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200",cat:"Shoes"}
+];
+</script>
+<script>
+const id=+localStorage.getItem("pid");
+const p=products.find(x=>x.id===id);
+
+details.innerHTML=`
+<img src="${p.img}">
+<h2>${p.name}</h2>
+<p>Price: $${p.price}</p>
+Quantity: <input type="number" value="1" min="1">
+<button onclick="location.href='cart.html'">Cash on Delivery</button>
+`;
+
+document.getElementById("related").innerHTML=
+products.filter(x=>x.cat===p.cat && x.id!==p.id)
+.map(x=>`
+<div class="card" onclick="localStorage.setItem('pid',${x.id});location.reload()">
+<img src="${x.img}">
+<p>${x.name}</p>
+</div>`).join("");
+</script>
+</body>
+</html>
