@@ -258,28 +258,11 @@ function openProduct(id){
  location.href="product.html";
 }
 
-function buyNow(id){
-  const product = products.find(p => p.id === id);
-
-  // Save order
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-  orders.push({
-    ...product,
-    date: new Date().toLocaleString()
-  });
-  localStorage.setItem("orders", JSON.stringify(orders));
-
-  // Add to cart
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const exists = cart.find(p => p.id === id);
-  if(exists){
-    exists.qty += 1;
-  }else{
-    cart.push({...product, qty:1});
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  location.href = "orders.html";
+function buyNow(product) {
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(product);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    window.location.href = "order.html";
 }
 
 
