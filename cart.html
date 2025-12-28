@@ -92,20 +92,5 @@ button:hover{
     <button type="submit">PLACE ORDER</button>
 </form>
 
-    function placeOrder(product){
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-  orders.push({
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    img: product.img,
-    date: new Date().toLocaleString()
-  });
-
-  localStorage.setItem("orders", JSON.stringify(orders));
-  location.href = "orders.html";
-}
-
 </body>
 </html>
