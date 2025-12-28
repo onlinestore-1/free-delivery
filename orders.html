@@ -1,129 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>My Orders</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f4;
-}
-.header{
-  background:#2874f0;
-  color:#fff;
-  padding:12px;
-  text-align:center;
-  font-size:20px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  padding:10px;
-}
-.card{
-  background:#fff;
-  padding:10px;
-  border-radius:8px;
-}
-.card img{
-  width:100%;
-  border-radius:6px;
-}
-.card h3{
-  margin:8px 0;
-}
-.price{
-  font-weight:bold;
-}
-.date{
-  font-size:12px;
-  color:#555;
-}
-.buy-again{
-  background:#000;
-  color:#fff;
-  border:none;
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border-radius:6px;
-}
-.delete{
-  background:#ccc;
-  border:none;
-  width:100%;
-  padding:8px;
-  margin-top:6px;
-  border-radius:6px;
-}
-</style>
+    <title>My Orders</title>
+    <style>
+        body { font-family: Arial; background:#f5f5f5; }
+        .order-container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .order-card {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            gap: 15px;
+            border-radius: 8px;
+        }
+        .order-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .order-details button {
+            padding: 10px;
+            margin-top: 8px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            background: red;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="header">My Orders</div>
-<div id="orders" class="grid"></div>
+<h2 style="text-align:center">My Orders</h2>
+
+<div class="order-container" id="orderList"></div>
 
 <script>
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
-const box = document.getElementById("orders");
+const orderList = document.getElementById("orderList");
 
-function renderOrders(){
-  box.innerHTML = "";
+function loadOrders() {
+    orderList.innerHTML = "";
 
-  if(orders.length === 0){
-    box.innerHTML = "<p style='padding:10px'>No orders placed yet</p>";
-    return;
-  }
+    if (orders.length === 0) {
+        orderList.innerHTML = "<p>No orders yet</p>";
+        return;
+    }
 
-  orders.forEach((o,index)=>{
-    box.innerHTML += `
-      <div class="card">
-        <img src="${o.img}">
-        <h3>${o.name}</h3>
-        <div class="price">$${o.price}</div>
-        <div class="date">Ordered on: ${o.date}</div>
-
-        <button class="buy-again" onclick="buyAgain(${index})">
-          Buy Again
-        </button>
-
-        <button class="delete" onclick="deleteOrder(${index})">
-          Delete
-        </button>
-      </div>
-    `;
-  });
+    orders.forEach((order, index) => {
+        orderList.innerHTML += `
+            <div class="order-card">
+                <img src="${order.img}">
+                <div class="order-details">
+                    <h3>${order.name}</h3>
+                    <p>Price: ${order.price}</p>
+                    <p>Payment: <b>Cash on Delivery</b></p>
+                    <button onclick="buyAgain(${index})">Buy Again</button><br>
+                    <button class="delete-btn" onclick="deleteOrder(${index})">Delete</button>
+                </div>
+            </div>
+        `;
+    });
 }
 
-function buyAgain(i){
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const p = orders[i];
-
-  const exists = cart.find(x => x.id === p.id);
-  if(exists){
-    exists.qty += 1;
-  }else{
-    cart.push({...p, qty:1});
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Product added to cart");
-  location.href = "cart.html";
+function buyAgain(index) {
+    alert("Order placed again with Cash on Delivery!");
 }
 
-function deleteOrder(i){
-  if(!confirm("Delete this order?")) return;
-  orders.splice(i,1);
-  localStorage.setItem("orders", JSON.stringify(orders));
-  renderOrders();
+function deleteOrder(index) {
+    orders.splice(index, 1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    loadOrders();
 }
 
-renderOrders();
+loadOrders();
 </script>
 
 </body>
