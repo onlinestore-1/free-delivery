@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Wishlist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f4f4;
+}
+h2{
+  padding:10px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:10px;
+}
+.card{
+  background:#fff;
+  padding:10px;
+  border-radius:6px;
+}
+.card img{
+  width:100%;
+}
+.remove{
+  background:#000;
+  color:#fff;
+  border:none;
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+}
+</style>
+</head>
+<body>
+
+<h2>My Wishlist</h2>
+<div id="wishlist" class="grid"></div>
+
+<script>
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const box = document.getElementById("wishlist");
+
+function draw(){
+  box.innerHTML = "";
+  if(wishlist.length === 0){
+    box.innerHTML = "<p style='padding:10px'>No items in wishlist</p>";
+    return;
+  }
+
+  wishlist.forEach((p,i)=>{
+    box.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${p.price}</b>
+        <button class="remove" onclick="removeItem(${i})">Remove</button>
+      </div>
+    `;
+  });
+}
+
+function removeItem(i){
+  wishlist.splice(i,1);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  draw();
+}
+
+draw();
+</script>
+
+</body>
+</html>
