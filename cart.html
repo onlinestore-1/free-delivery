@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Cart</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    padding:20px;
+}
+
+/* Page title */
+.page-title{
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+/* Cash on Delivery section */
+.cod-box{
+    background:#fff3cd;
+    border:2px solid #ffc107;
+    padding:20px;
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+/* Form container */
+form{
+    max-width:400px;
+    margin:auto;
+    background:#ffffff;
+    padding:20px;
+    border-radius:10px;
+}
+
+/* Inputs */
+input{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    margin-bottom:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+/* Yellow button */
+button{
+    width:100%;
+    padding:16px;
+    font-size:20px;
+    font-weight:bold;
+    background:#ffc107;
+    color:#000;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e0a800;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-title">My Cart</div>
+
+<div class="cod-box">
+    🚚 CASH ON DELIVERY  
+    <br>
+    Pay when your order arrives
+</div>
+
+<!-- 🔴 Replace YOUR_FORM_ID with your Formspree ID -->
+<form action="https://formspree.io/f/mgowglbv" method="POST">
+
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+    <input type="text" name="address" placeholder="Delivery Address" required>
+
+    <!-- Optional hidden message -->
+    <input type="hidden" name="payment_method" value="Cash on Delivery">
+
+    <button type="submit">PLACE ORDER</button>
+</form>
+
+</body>
+</html>
