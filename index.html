@@ -229,9 +229,28 @@ function searchProduct(v){
  draw(products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),productBox);
 }
 
-function toggleWish(el,e){
- e.stopPropagation();
- el.classList.toggle("active");
+function toggleWish(el, e){
+  e.stopPropagation();
+  el.classList.toggle("active");
+
+  const card = el.closest(".card");
+  const name = card.querySelector("p").innerText;
+  const price = card.querySelector("b").innerText;
+  const img = card.querySelector("img").src;
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  const exists = wishlist.find(p => p.name === name);
+
+  if(el.classList.contains("active")){
+    if(!exists){
+      wishlist.push({name, price, img});
+    }
+  }else{
+    wishlist = wishlist.filter(p => p.name !== name);
+  }
+
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
 
 function openProduct(id){
