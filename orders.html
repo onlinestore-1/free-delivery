@@ -66,34 +66,33 @@ body{
 <body>
 
 <div class="header">My Orders</div>
-
 <div id="orders" class="grid"></div>
 
 <script>
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 const box = document.getElementById("orders");
 
-function drawOrders(){
+function renderOrders(){
   box.innerHTML = "";
 
   if(orders.length === 0){
-    box.innerHTML = "<p style='padding:10px'>No orders yet</p>";
+    box.innerHTML = "<p style='padding:10px'>No orders placed yet</p>";
     return;
   }
 
-  orders.forEach((p,i)=>{
+  orders.forEach((o,index)=>{
     box.innerHTML += `
       <div class="card">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <div class="price">$${p.price}</div>
-        <div class="date">Ordered on: ${p.date}</div>
+        <img src="${o.img}">
+        <h3>${o.name}</h3>
+        <div class="price">$${o.price}</div>
+        <div class="date">Ordered on: ${o.date}</div>
 
-        <button class="buy-again" onclick="buyAgain(${i})">
+        <button class="buy-again" onclick="buyAgain(${index})">
           Buy Again
         </button>
 
-        <button class="delete" onclick="deleteOrder(${i})">
+        <button class="delete" onclick="deleteOrder(${index})">
           Delete
         </button>
       </div>
@@ -101,9 +100,9 @@ function drawOrders(){
   });
 }
 
-function buyAgain(index){
+function buyAgain(i){
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const p = orders[index];
+  const p = orders[i];
 
   const exists = cart.find(x => x.id === p.id);
   if(exists){
@@ -113,18 +112,18 @@ function buyAgain(index){
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart");
+  alert("Product added to cart");
   location.href = "cart.html";
 }
 
-function deleteOrder(index){
-  if(!confirm("Remove this order?")) return;
-  orders.splice(index,1);
+function deleteOrder(i){
+  if(!confirm("Delete this order?")) return;
+  orders.splice(i,1);
   localStorage.setItem("orders", JSON.stringify(orders));
-  drawOrders();
+  renderOrders();
 }
 
-drawOrders();
+renderOrders();
 </script>
 
 </body>
