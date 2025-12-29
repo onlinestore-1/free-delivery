@@ -282,6 +282,21 @@ function addToOrders(product) {
     localStorage.setItem("orders", JSON.stringify(orders));
     window.location.href = "order.html";
 }
+
+    <script>
+function addToWishlist(id, e){
+  e.stopPropagation();
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  if(!wishlist.includes(id)){
+    wishlist.push(id);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }
+
+  location.href = "wishlist.html";
+}
+</script>
 </script>
 </body>
 </html>
