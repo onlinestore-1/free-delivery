@@ -209,7 +209,9 @@ function draw(list,box){
  list.forEach(p=>{
   box.innerHTML+=`
   <div class="card">
-   <i class="fa-regular fa-heart wishlist" onclick="toggleWish(this,event)"></i>
+   <i class="fa-regular fa-heart wishlist"
+   onclick="addToWishlist(${p.id}, event)">
+</i>
    <img src="${p.img}" onclick="openProduct(${p.id})">
    <p>${p.name}</p>
    <b>$${p.price}</b>
