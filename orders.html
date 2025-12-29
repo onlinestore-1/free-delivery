@@ -46,6 +46,16 @@ body{
   margin-top:6px;
   border-radius:6px;
 }
+.delete-btn{
+  background:#e53935;
+  color:#fff;
+  border:none;
+  width:100%;
+  padding:8px;
+  font-size:14px;
+  margin-top:6px;
+  border-radius:6px;
+}
 .date{
   font-size:12px;
   color:#555;
@@ -60,12 +70,17 @@ body{
 <div id="orders" class="grid"></div>
 
 <script>
-const orders = JSON.parse(localStorage.getItem("orders")) || [];
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
 const box = document.getElementById("orders");
 
-if(orders.length === 0){
-  box.innerHTML = "<p style='padding:10px'>No orders yet</p>";
-}else{
+function renderOrders(){
+  box.innerHTML = "";
+
+  if(orders.length === 0){
+    box.innerHTML = "<p style='padding:10px'>No orders yet</p>";
+    return;
+  }
+
   orders.forEach((p,i)=>{
     box.innerHTML += `
       <div class="card">
@@ -74,19 +89,36 @@ if(orders.length === 0){
         <p><b>$${p.price}</b></p>
         <div class="date">Ordered on: ${p.date}</div>
 
-        <button class="buy-again" onclick="buyAgain(${p.id})">
+        <button class="buy-again" onclick="buyAgain(${i})">
           Buy Again
+        </button>
+
+        <button class="delete-btn" onclick="deleteOrder(${i})">
+          Delete
         </button>
       </div>
     `;
   });
 }
 
-function buyAgain(id){
-  localStorage.setItem("pid", id);
-  location.href = "checkout.html"; 
-  // or product.html if you prefer
+function buyAgain(index){
+  orders.push({
+    ...orders[index],
+    date: new Date().toLocaleString()
+  });
+  localStorage.setItem("orders", JSON.stringify(orders));
+  renderOrders();
 }
+
+function deleteOrder(index){
+  if(confirm("Remove this order?")){
+    orders.splice(index,1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    renderOrders();
+  }
+}
+
+renderOrders();
 </script>
 
 </body>
