@@ -272,5 +272,16 @@ function closeMenu(){
  document.querySelector(".overlay").style.display="none";
 }
 </script>
+  <script>
+function addToOrders(product) {
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push({
+        ...product,
+        date: new Date().toLocaleString()
+    });
+    localStorage.setItem("orders", JSON.stringify(orders));
+    window.location.href = "order.html";
+}
+</script>
 </body>
 </html>
