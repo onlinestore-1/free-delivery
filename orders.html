@@ -1,124 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>My Orders</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f4;
+body {
+    font-family: Arial;
+    background: #f2f2f2;
 }
-.header{
-  background:#2874f0;
-  color:#fff;
-  padding:12px;
-  text-align:center;
-  font-size:20px;
+.orders-wrapper {
+    max-width: 900px;
+    margin: auto;
 }
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  padding:10px;
+.order-card {
+    background: #fff;
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
 }
-.card{
-  background:#fff;
-  padding:10px;
-  border-radius:8px;
+.order-card img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
 }
-.card img{
-  width:100%;
-  border-radius:6px;
+.order-info button {
+    padding: 10px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
-.card h3{
-  margin:8px 0;
+.buy-btn {
+    background: green;
+    color: white;
 }
-.buy-again{
-  background:#000;
-  color:#fff;
-  border:none;
-  width:100%;
-  padding:10px;
-  font-size:16px;
-  margin-top:6px;
-  border-radius:6px;
-}
-.delete-btn{
-  background:#e53935;
-  color:#fff;
-  border:none;
-  width:100%;
-  padding:8px;
-  font-size:14px;
-  margin-top:6px;
-  border-radius:6px;
-}
-.date{
-  font-size:12px;
-  color:#555;
+.delete-btn {
+    background: red;
+    color: white;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">My Orders</div>
+<h2 style="text-align:center">My Orders</h2>
 
-<div id="orders" class="grid"></div>
+<div class="orders-wrapper" id="ordersList"></div>
 
 <script>
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
-const box = document.getElementById("orders");
+const ordersList = document.getElementById("ordersList");
 
-function renderOrders(){
-  box.innerHTML = "";
+function showOrders() {
+    ordersList.innerHTML = "";
 
-  if(orders.length === 0){
-    box.innerHTML = "<p style='padding:10px'>No orders yet</p>";
-    return;
-  }
+    if (orders.length === 0) {
+        ordersList.innerHTML = "<p style='text-align:center'>No orders yet</p>";
+        return;
+    }
 
-  orders.forEach((p,i)=>{
-    box.innerHTML += `
-      <div class="card">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <p><b>$${p.price}</b></p>
-        <div class="date">Ordered on: ${p.date}</div>
+    orders.forEach((order, index) => {
+        ordersList.innerHTML += `
+        <div class="order-card">
+            <img src="${order.img}">
+            <div class="order-info">
+                <h3>${order.name}</h3>
+                <p>Price: ${order.price}</p>
+                <p>Ordered: ${order.date}</p>
+                <p><b>Payment:</b> Cash on Delivery</p>
 
-        <button class="buy-again" onclick="buyAgain(${i})">
-          Buy Again
-        </button>
-
-        <button class="delete-btn" onclick="deleteOrder(${i})">
-          Delete
-        </button>
-      </div>
-    `;
-  });
+                <button class="buy-btn" onclick="buyAgain(${index})">Buy Again</button><br>
+                <button class="delete-btn" onclick="deleteOrder(${index})">Delete</button>
+            </div>
+        </div>
+        `;
+    });
 }
 
-function buyAgain(index){
-  orders.push({
-    ...orders[index],
-    date: new Date().toLocaleString()
-  });
-  localStorage.setItem("orders", JSON.stringify(orders));
-  renderOrders();
-}
-
-function deleteOrder(index){
-  if(confirm("Remove this order?")){
-    orders.splice(index,1);
+function buyAgain(index) {
+    orders.push({
+        ...orders[index],
+        date: new Date().toLocaleString()
+    });
     localStorage.setItem("orders", JSON.stringify(orders));
-    renderOrders();
-  }
+    showOrders();
+    alert("Order placed again!");
 }
 
-renderOrders();
+function deleteOrder(index) {
+    orders.splice(index, 1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    showOrders();
+}
+
+showOrders();
 </script>
 
 </body>
