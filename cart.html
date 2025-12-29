@@ -91,6 +91,27 @@ button:hover{
 
     <button type="submit">PLACE ORDER</button>
 </form>
+<script>
+const products = [
+ {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+];
 
+function placeOrder(){
+  const pid = localStorage.getItem("pid");
+  const product = products.find(p=>p.id==pid);
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    ...product,
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+  location.href = "orders.html";
+}
+</script>
 </body>
 </html>
