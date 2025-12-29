@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <title>My Wishlist</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body{
   margin:0;
   font-family:Arial;
   background:#f4f4f4;
 }
-h2{
-  padding:10px;
+.header{
+  background:#2874f0;
+  color:#fff;
+  padding:12px;
+  text-align:center;
+  font-size:20px;
 }
 .grid{
   display:grid;
@@ -26,52 +31,85 @@ h2{
 }
 .card img{
   width:100%;
+  border-radius:6px;
+}
+.buy{
+  background:#ff9f00;
+  border:none;
+  width:100%;
+  padding:8px;
+  margin-top:6px;
+  border-radius:6px;
 }
 .remove{
-  background:#000;
+  background:#e53935;
   color:#fff;
   border:none;
   width:100%;
   padding:8px;
-  margin-top:5px;
+  margin-top:6px;
+  border-radius:6px;
 }
 </style>
 </head>
+
 <body>
 
-<h2>My Wishlist</h2>
-<div id="wishlist" class="grid"></div>
+<div class="header">My Wishlist</div>
+<div id="list" class="grid"></div>
 
 <script>
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-const box = document.getElementById("wishlist");
+const products = [
+ {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+];
 
-function draw(){
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const box = document.getElementById("list");
+
+function render(){
   box.innerHTML = "";
+
   if(wishlist.length === 0){
-    box.innerHTML = "<p style='padding:10px'>No items in wishlist</p>";
+    box.innerHTML = "<p style='padding:10px'>Wishlist is empty</p>";
     return;
   }
 
-  wishlist.forEach((p,i)=>{
+  wishlist.forEach((id,i)=>{
+    const p = products.find(x => x.id === id);
+    if(!p) return;
+
     box.innerHTML += `
       <div class="card">
         <img src="${p.img}">
         <p>${p.name}</p>
-        <b>${p.price}</b>
-        <button class="remove" onclick="removeItem(${i})">Remove</button>
+        <b>$${p.price}</b>
+
+        <button class="buy" onclick="buyNow(${p.id})">
+          Buy Now
+        </button>
+
+        <button class="remove" onclick="removeItem(${i})">
+          Remove
+        </button>
       </div>
     `;
   });
 }
 
-function removeItem(i){
-  wishlist.splice(i,1);
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  draw();
+function buyNow(id){
+  localStorage.setItem("pid", id);
+  location.href = "checkout.html";
 }
 
-draw();
+function removeItem(index){
+  wishlist.splice(index,1);
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  render();
+}
+
+render();
 </script>
 
 </body>
