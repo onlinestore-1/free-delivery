@@ -4,15 +4,7 @@
 <meta charset="UTF-8">
 <title>Shop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2874f0">
-
-<!-- Apple support -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Shop">
-  
+<meta name="referee" content="strict-origin-when-cross-origin">
 <style>
   body{margin:0;font-family:Arial;background:#f4f4f4}
 
@@ -201,33 +193,32 @@
 <h3>Suggested For You</h3>
 <div id="suggested" class="grid"></div>
 
-<div id="products"></div>
-
 <script>
-const products = [
- {id:1,name:"Men T-shirt",price:12,img:"https://via.placeholder.com/200"},
- {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200"},
- {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+  const products=[
+ {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200",cat:"Clothes"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200",cat:"Clothes"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200",cat:"Shoes"}
 ];
-
-const box = document.getElementById("products");
-
-products.forEach(p=>{
- box.innerHTML += `
-  <div>
-    <img src="${p.img}" width="150">
-    <p>${p.name}</p>
-    <b>$${p.price}</b>
-    <button onclick="orderProduct(${p.id})">Buy Now</button>
-  </div>
- `;
-});
-
-function orderProduct(id){
- localStorage.setItem("pid", id);
- location.href = "order.html";
-}
 </script>
+<script>
+  const productBox=document.getElementById("products");
+const suggestedBox=document.getElementById("suggested");
+
+function draw(list,box){
+ box.innerHTML="";
+ list.forEach(p=>{
+  box.innerHTML+=`
+  <div class="card">
+   <i class="fa-regular fa-heart wishlist"
+   onclick="addToWishlist(${p.id}, event)">
+</i>
+   <img src="${p.img}" onclick="openProduct(${p.id})">
+   <p>${p.name}</p>
+   <b>$${p.price}</b>
+   <button class="buy" onclick="buyNow(${p.id})">Buy Now</button>
+  </div>`;
+ });
+}
 
 draw(products,productBox);
 draw(products.slice(0,2),suggestedBox);
@@ -269,7 +260,7 @@ function openProduct(id){
  location.href="product.html";
 }
 
-function buyNow(id){
+function buyNow(id) {
   localStorage.setItem("pid",id);
   location.href="product.html";
 }
@@ -294,6 +285,7 @@ function addToOrders(product) {
     window.location.href = "order.html";
 }
 
+    <script>
 function addToWishlist(id, e){
   e.stopPropagation();
 
@@ -306,6 +298,7 @@ function addToWishlist(id, e){
 
   location.href = "wishlist.html";
 }
+</script>
 </script>
 </body>
 </html>
