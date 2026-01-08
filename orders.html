@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Place Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;background:#f4f4f4}
+form{background:#fff;padding:15px;margin:10px;border-radius:6px}
+input,textarea,button{width:100%;margin:6px 0;padding:8px}
+button{background:#2874f0;color:#fff;border:none}
+</style>
+</head>
+<body>
 
+<h2>Order Details</h2>
+
+<form action="https://formsubmit.co/YOUREMAIL@gmail.com" method="POST">
+
+  <!-- CUSTOMER INFO -->
+  <input type="text" name="Customer Name" placeholder="Your Name" required>
+  <input type="tel" name="Phone Number" placeholder="Phone Number" required>
+  <textarea name="Delivery Address" placeholder="Delivery Address" required></textarea>
+
+  <!-- 🔥 PRODUCT INFO (AUTO FILLED) -->
+  <input type="hidden" name="Product Name" id="pname">
+  <input type="hidden" name="Product Price" id="pprice">
+  <input type="hidden" name="Product Image" id="pimg">
+
+  <!-- FORM SETTINGS -->
+  <input type="hidden" name="_subject" value="NEW PRODUCT ORDER">
+  <input type="hidden" name="_captcha" value="false">
+
+  <button type="submit">Place Order</button>
+</form>
+
+<script>
+const products = [
+ {id:1,name:"Men T-shirt",price:12,img:"https://via.placeholder.com/200"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+];
+
+const pid = localStorage.getItem("pid");
+const product = products.find(p => p.id == pid);
+
+document.getElementById("pname").value = product.name;
+document.getElementById("pprice").value = "$" + product.price;
+document.getElementById("pimg").value = product.img;
+</script>
+
+</body>
+</html>
