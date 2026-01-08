@@ -268,9 +268,36 @@ function openProduct(id){
  location.href="product.html";
 }
 
-function buyNow(id) {
-  localStorage.setItem("pid",id);
-  location.href="product.html";
+function buyNow(id){
+  const product = products.find(p => p.id === id);
+
+  const customerName = prompt("Enter your name");
+  const phone = prompt("Enter your phone number");
+  const address = prompt("Enter delivery address");
+
+  if(!customerName || !phone || !address){
+    alert("Order cancelled");
+    return;
+  }
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    productId: product.id,
+    productName: product.name,
+    price: product.price,
+    image: product.img,
+    customer: customerName,
+    phone: phone,
+    address: address,
+    date: new Date().toLocaleString(),
+    status: "Pending"
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  alert("Order submitted successfully ✅");
+  location.href = "orders.html";
 }
 
 function openMenu(){
