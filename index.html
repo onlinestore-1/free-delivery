@@ -201,32 +201,33 @@
 <h3>Suggested For You</h3>
 <div id="suggested" class="grid"></div>
 
-<script>
-  const products=[
- {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200",cat:"Clothes"},
- {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200",cat:"Clothes"},
- {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200",cat:"Shoes"}
-];
-</script>
-<script>
-  const productBox=document.getElementById("products");
-const suggestedBox=document.getElementById("suggested");
+<div id="products"></div>
 
-function draw(list,box){
- box.innerHTML="";
- list.forEach(p=>{
-  box.innerHTML+=`
-  <div class="card">
-   <i class="fa-regular fa-heart wishlist"
-   onclick="addToWishlist(${p.id}, event)">
-</i>
-   <img src="${p.img}" onclick="openProduct(${p.id})">
-   <p>${p.name}</p>
-   <b>$${p.price}</b>
-   <button class="buy" onclick="buyNow(${p.id})">Buy Now</button>
-  </div>`;
- });
+<script>
+const products = [
+ {id:1,name:"Men T-shirt",price:12,img:"https://via.placeholder.com/200"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+];
+
+const box = document.getElementById("products");
+
+products.forEach(p=>{
+ box.innerHTML += `
+  <div>
+    <img src="${p.img}" width="150">
+    <p>${p.name}</p>
+    <b>$${p.price}</b>
+    <button onclick="orderProduct(${p.id})">Buy Now</button>
+  </div>
+ `;
+});
+
+function orderProduct(id){
+ localStorage.setItem("pid", id);
+ location.href = "order.html";
 }
+</script>
 
 draw(products,productBox);
 draw(products.slice(0,2),suggestedBox);
