@@ -1,7 +1,7 @@
 {
   "name": "Jafarotto Shop",
   "short_name": "Shop",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2874f0",
