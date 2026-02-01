@@ -1,190 +1,117 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shop</title>
+<title>jafar-otto.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<style>
-  body{margin:0;font-family:Arial;background:#f4f4f4}
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="manifest" href="manifest.json">
 
-/* Top bar */
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4}
+
+/* TOP BAR */
 .topbar{
  display:flex;
  align-items:center;
  background:#2874f0;
  padding:10px;
- color:#fff
-}
-.menu-btn{font-size:22px;margin-right:10px;cursor:pointer}
-.topbar input{
- flex:1;
- padding:8px;
- border:none;
- border-radius:4px
-}
-
-/* Drawer */
-.drawer{
- position:fixed;
- top:0;
- left:-260px;
- width:260px;
- height:100%;
- background:#fff;
- box-shadow:2px 0 5px rgba(0,0,0,.3);
- transition:.3s;
- z-index:1000
-}
-.drawer-header{
- background:#2874f0;
- color:#fff;
- padding:15px;
- font-weight:bold
-}
-.drawer a{
- display:block;
- padding:12px;
- text-decoration:none;
- color:#000;
- border-bottom:1px solid #eee
-}
-.drawer a:hover{background:#f2f2f2}
-
-/* Overlay */
-.overlay{
- position:fixed;
- top:0;left:0;
- width:100%;height:100%;
- background:rgba(0,0,0,.4);
- display:none;
- z-index:900
-}
-
-.header{
- display:flex;
- padding:10px;
- background:#2874f0;
- gap:10px;
-}
-
-.header input{
- flex:1;
- padding:8px;
- border:none;
- border-radius:4px;
-}
-
-.cart-icon{
  color:white;
- font-size:22px;
-}
-
-.slider img{
- width:100%;
- display:none;
-}
-
-.slider img:first-child{display:block;}
-
-.categories{
- display:flex;
- overflow-x:auto;
- background:#fff;
- padding:10px;
- gap:15px;
-}
-
-.categories div{
- min-width:90px;
- text-align:center;
-}
-
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
  gap:10px;
- padding:10px;
+}
+.menu-btn{font-size:22px;cursor:pointer}
+.topbar input{
+ flex:1;padding:8px;border:none;border-radius:4px
+}
+.cart-icon{font-size:22px}
+
+/* DRAWER */
+.drawer{
+ position:fixed;top:0;left:-260px;
+ width:260px;height:100%;
+ background:#fff;transition:.3s;z-index:1000
+}
+.drawer-header{background:#2874f0;color:#fff;padding:15px}
+.drawer a{display:block;padding:12px;color:#000;text-decoration:none}
+.drawer a:hover{background:#f2f2f2}
+.overlay{
+ position:fixed;top:0;left:0;width:100%;height:100%;
+ background:rgba(0,0,0,.4);display:none
 }
 
+/* SLIDER */
+.slider img{width:100%;display:none}
+.slider img:first-child{display:block}
+
+/* CATEGORIES */
+.categories{
+ display:flex;overflow-x:auto;background:#fff;padding:10px;gap:15px
+}
+.categories div{text-align:center;min-width:80px}
+
+/* PRODUCTS */
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:10px;padding:10px
+}
 .card{
- background:#fff;
- padding:10px;
- position:relative;
- border-radius:6px;
+ background:#fff;padding:10px;border-radius:6px
 }
-
-.card img{
- width:100%;
-}
-
-.wishlist{
- position:absolute;
- top:8px;
- right:8px;
- font-size:20px;
- color:#999;
-}
-
-.wishlist.active{
- color:red;
-}
-
-.buy{
- background:#ff9f00;
- color:#000;
- padding:6px;
- border:none;
- width:100%;
- margin-top:5px;
-}
+.card img{width:100%}
+.buy{background:#ff9f00;border:none;width:100%;padding:6px}
 </style>
-
-<!-- ICONS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-<!-- HEADER -->
-  <header class="topbar">
-  <span class="menu-btn" onclick="openMenu()">☰</span>
-  <input type="text" placeholder="Search products..." onkeyup="search(this.value)">
-</header>
+<!-- TOP BAR -->
+<div class="topbar">
+ <span class="menu-btn" onclick="openMenu()">☰</span>
+ <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
+ <i class="fa fa-cart-shopping cart-icon"
+  onclick="location.href='cart.html'"></i>
+</div>
 
+<!-- DRAWER -->
 <div id="drawer" class="drawer">
-  <div class="drawer-header">Login & Signup</div>
-
-  <a href="#">SuperCoin Zone</a>
-  <a href="#">All Categories</a>
-  <a href="orders.html">My Orders</a>
-  <a href="cart.html">My Cart</a>
-  <a href="#">My Wishlist</a>
-  <a href="#">My Account</a>
-  <a href="#">Help Centre</a>
-  <a href="#">Legal</a>
+ <div class="drawer-header">Login & Signup</div>
+ <a href="#">SuperCoin Zone</a>
+ <a href="#">All Categories</a>
+ <a href="orders.html">My Orders</a>
+ <a href="cart.html">My Cart</a>
+ <a href="#">My Wishlist</a>
+ <a href="#">My Account</a>
+ <a href="#">Help Centre</a>
+ <a href="#">Legal</a>
 </div>
-
 <div class="overlay" onclick="closeMenu()"></div>
-  <input type="search" placeholder="Search products..." onkeyup="searchProduct(this.value)">
-  <i class="fa-solid fa-cart-shopping cart-icon" onclick="location.href='cart.html'"></i>
 
-
-<!-- AD SLIDER -->
+<!-- ADS -->
 <div class="slider">
-  <img src="https://via.placeholder.com/600x200?text=SALE+1">
-  <img src="https://via.placeholder.com/600x200?text=SALE+2">
+ <img src="https://i.imgur.com/j6JWI5n.png/600x200?text=SALE">
+ <img src="https://i.imgur.com/3ZFgqAY.png/600x200?text=SALE">
+ <img src="https://i.imgur.com/M4bTgH1.png/600x200?text=OFFER">
 </div>
 
-<!-- CATEGORIES (UNCHANGED LAYOUT) -->
+<!-- CATEGORIES -->
 <div class="categories">
-  <div onclick="filterCategory('Clothes')">
-    <img src="https://via.placeholder.com/80">
-    <p>Clothes</p>
-  </div>
-  <div onclick="filterCategory('Shoes')">
-    <img src="https://via.placeholder.com/80">
-    <p>Shoes</p>
-  </div>
+ <div onclick="filter('Fashion')">
+  <img src="https://i.imgur.com/Trbu30c.jpeg/80"><p>Fashion</p>
+ </div>
+ <div onclick="filter('Chakula & afya')">
+  <img src="https://i.imgur.com/Bx32Xdq.jpeg/80"><p>Chakula & afya</p>
+ </div>
+ <div onclick="filter('Muhimu')">
+  <img src="https://i.imgur.com/mFLFlEV.jpeg/80"><p>Muhimu</p>
+ </div>
+ <div onclick="filter('Ice-cream')">
+  <img src="https://i.imgur.com/GrA2VA5.jpeg/80"><p>Ice-cream</p>
+ </div>
+  <div onclick="filter('Juices & cold drinks')">
+  <img src="https://i.imgur.com/zPFz6LE.jpeg/80"><p>Juices & cold drinks</p>
+ </div>
 </div>
 
 <h3>Products</h3>
@@ -193,112 +120,75 @@
 <h3>Suggested For You</h3>
 <div id="suggested" class="grid"></div>
 
+<h3>You May Also Like</h3>
+<div id="like" class="grid"></div>
+
 <script>
-  const products=[
- {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/yslfBUg.jpeg/200",cat:"Clothes"},
- {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200",cat:"Clothes"},
- {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200",cat:"Shoes"}
+const products=[
+ {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/b4T6KVn.jpeg/200",cat:"Fashion",desc:"Cotton T-shirt"},
+ {id:2,name:"Dress",price:22,img:"https://i.imgur.com/F9T6D7U.jpeg/200",cat:"Fashion",desc:"Ladies dress"},
+ {id:3,name:"Sukari 1kg",price:30,img:"https://i.imgur.com/1EFgnRl.jpeg/200",cat:"Chakula & afya",desc:"Sukari 1kg"},
+ {id:4,name:"Mafuta ya kupikia",price:45,img:"https://i.imgur.com/4B7cTjc.jpeg/200",cat:"Chakula & afya",desc:"Pika kisasa na korie"},
+ {id:5,name:"Chumvi",price:30,img:"https://i.imgur.com/e4CXmHr.jpeg/200",cat:"Chakula & afya",desc:"chumvi bora"},
+ {id:6,name:"Blue Band",price:30,img:"https://i.imgur.com/PnEvGZN.jpeg/200",cat:"Chakula & afya",desc:"Blue Band bora"},
+ {id:7,name:"Tomato sauce",price:20,img:"https://i.imgur.com/IqhRkL7.jpeg/200",cat:"Chakula & afya",desc:"Tomato sauce tamu"},
+ {id:8,name:"Soy sauce",price:10,img:"https://i.imgur.com/CqraWiO.jpeg/200",cat:"Chakula & afya",desc:"Jipatie soy sauce"},
+ {id:9,name:"Baking powder",price:10,img:"https://i.imgur.com/WlfRjNu.jpeg/200",cat:"Chakula & afya",desc:"kwa mandazi"},
+ {id:10,name:"Royco",price:14,img:"https://i.imgur.com/rmXvXwO.jpeg/200",cat:"Chakula & afya",desc:"Royco mchuzi mix"},
+ {id:11,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",cat:"Juices & cold drinks",desc:"Coca Cola"},
+ {id:12,name:"pepsi",price:23,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",cat:"Juices & cold drinks",desc:"pepsi"},
+ {id:13,name:"Splash",price:12,img:"https://i.imgur.com/4ifKGQC.jpeg/200",cat:"Ice-cream",desc:"Splash sweet flavour"},
+ {id:14,name:"Bubble gum",price:15,img:"https://i.imgur.com/jJyMg1u.jpeg/200",cat:"Ice-cream",desc:"Bubble gum flavoured ice lolly"},
+ {id:15,name:"Ballcone",price:13,img:"https://i.imgur.com/YU7yVMc.jpeg/200",cat:"Ice-cream",desc:"Ballcone flavoured ice cream"},
+ {id:16,name:"Cherry",price:13,img:"https://i.imgur.com/Ax4J2uH.jpeg/200",cat:"Ice-cream",desc:"Cherry flavoured ice lolly"},
+ {id:17,name:"Cherry Bar",price:13,img:"https://i.imgur.com/QZ8B1VC.jpeg/200",cat:"Ice-cream",desc:"Cherry flavoured ice bar"},
+ {id:18,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",cat:"Ice-cream",desc:"Caramello flavoured ice cream"},
+ {id:19,name:"Doffi",price:17,img:"https://i.imgur.com/hD9g7L2.jpeg/200",cat:"Muhimu",desc:"Washing powder"},
+ {id:20,name:"Jet",price:19,img:"https://i.imgur.com/OoGiHtj.jpeg/200",cat:"Muhimu",desc:"Dish washing liquid soap"},
+ {id:21,name:"Jet",price:18,img:"https://i.imgur.com/q36RjQ2.jpeg/200",cat:"Muhimu",desc:"Dish washing liquid soap"},
+ {id:22,name:"Vaseline Jelly",price:14,img:"https://i.imgur.com/iFw39jh.jpeg/200",cat:"Muhimu",desc:"Body lotion"},
+ {id:23,name:"Rungu",price:14,img:"https://i.imgur.com/KIi9LUL.jpeg/200",cat:"Muhimu",desc:"Ya kuua wadudu warukao na wanaotambaa"},
+ {id:24,name:"Professor",price:15,img:"https://i.imgur.com/okplIfF.jpeg/200",cat:"Muhimu",desc:"Professor Counter Book 3Q"},
+ {id:25,name:"Vaseline",price:16,img:"https://i.imgur.com/2V7rzh7.jpeg/200",cat:"Muhimu",desc:"Pure petroleum jelly"},
+ {id:26,name:"Rexa",price:17,img:"https://i.imgur.com/3EPfv80.jpeg/200",cat:"Muhimu",desc:"Rexa toilet paper soft and white"},
+ {id:27,name:"Msomi",price:15,img:"https://i.imgur.com/zU2mjIE.jpeg/200",cat:"Muhimu",desc:"Msomi Exercise Book"},
+ {id:28,name:"OMO",price:18,img:"https://i.imgur.com/v0eeorr.jpeg/200",cat:"Muhimu",desc:"Ondoa madoa sugu"},
+ {id:29,name:"Niceone",price:18,img:"https://i.imgur.com/7nmPGbq.jpeg/200",cat:"Muhimu",desc:"Ondoa madoa sugu"},
+ {id:30,name:"Hiper razor",price:19,img:"https://i.imgur.com/zIJlaP3.jpeg/200",cat:"Muhimu",desc:"kiwembe bora"},
+ {id:31,name:"Afya Maji",price:23,img:"https://i.imgur.com/u9dkajs.jpeg/200",cat:"Juices & cold drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini"},
+ {id:32,name:"u-fresh orange",price:23,img:"https://i.imgur.com/k42X2gl.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:33,name:"u-fresh power",price:23,img:"https://i.imgur.com/y1qJelw.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:34,name:"u-fresh pineapple",price:23,img:"https://i.imgur.com/GcVEME3.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:35,name:"Exercise Book",price:19,img:"https://i.imgur.com/AQrSAGW.jpeg/200",cat:"Muhimu",desc:"Daftari mistali mikubwa na midogo"},
+ {id:36,name:"Exercise Book",price:19,img:"https://i.imgur.com/ihIcg3h.jpeg/200",cat:"Muhimu",desc:"Daftari la kuandikia page 100"},
+ {id:37,name:"Exercise Book",price:17,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",cat:"Muhimu",desc:"Daftari la kuandikia page 32"},
+ {id:38,name:"Hand soap",price:17,img:"https://i.imgur.com/Mi3AaMB.jpeg/200",cat:"Muhimu",desc:"Liduid hand wash"},
+ {id:39,name:"u-fresh passion",price:20,img:"https://i.imgur.com/9uhn4hj.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:40,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"}
 ];
-</script>
-<script>
-  const productBox=document.getElementById("products");
-const suggestedBox=document.getElementById("suggested");
 
-function draw(list,box){
- box.innerHTML="";
- list.forEach(p=>{
-  box.innerHTML+=`
-  <div class="card">
-   <i class="fa-regular fa-heart wishlist"
-   onclick="addToWishlist(${p.id}, event)">
-</i>
-   <img src="${p.img}" onclick="openProduct(${p.id})">
-   <p>${p.name}</p>
-   <b>$${p.price}</b>
-   <button class="buy" onclick="buyNow(${p.id})">Buy Now</button>
-  </div>`;
- });
+function draw(list,id){
+ document.getElementById(id).innerHTML=list.map(p=>`
+ <div class="card">
+  <img src="${p.img}" onclick="openProduct(${p.id})">
+  <p>${p.name}</p>
+  <b>$${p.price}</b>
+  <button class="buy" onclick="openProduct(${p.id})">Buy Now</button>
+ </div>`).join("");
 }
-
-draw(products,productBox);
-draw(products.slice(0,2),suggestedBox);
-
-function filterCategory(c){
- draw(products.filter(p=>p.cat===c),productBox);
-}
-
-function searchProduct(v){
- draw(products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),productBox);
-}
-
-function toggleWish(el, e){
-  e.stopPropagation();
-  el.classList.toggle("active");
-
-  const card = el.closest(".card");
-  const name = card.querySelector("p").innerText;
-  const price = card.querySelector("b").innerText;
-  const img = card.querySelector("img").src;
-
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-  const exists = wishlist.find(p => p.name === name);
-
-  if(el.classList.contains("active")){
-    if(!exists){
-      wishlist.push({name, price, img});
-    }
-  }else{
-    wishlist = wishlist.filter(p => p.name !== name);
-  }
-
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-}
+ 
+draw(products,"products");
+draw(products.slice(0,2),"suggested");
+draw(products.slice(1),"like");
 
 function openProduct(id){
  localStorage.setItem("pid",id);
  location.href="product.html";
 }
-
-function buyNow(id) {
-  localStorage.setItem("pid",id);
-  location.href="product.html";
-}
-
-function openMenu(){
- document.getElementById("drawer").style.left="0";
- document.querySelector(".overlay").style.display="block";
-}
-function closeMenu(){
- document.getElementById("drawer").style.left="-260px";
- document.querySelector(".overlay").style.display="none";
-}
-</script>
-  <script>
-function addToOrders(product) {
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-    orders.push({
-        ...product,
-        date: new Date().toLocaleString()
-    });
-    localStorage.setItem("orders", JSON.stringify(orders));
-    window.location.href = "order.html";
-}
-
-    <script>
-function addToWishlist(id, e){
-  e.stopPropagation();
-
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-  if(!wishlist.includes(id)){
-    wishlist.push(id);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }
-
-  location.href = "wishlist.html";
-}
-</script>
+function filter(c){draw(products.filter(p=>p.cat==c),"products")}
+function search(v){draw(products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"products")}
+function openMenu(){drawer.style.left="0";document.querySelector(".overlay").style.display="block"}
+function closeMenu(){drawer.style.left="-260px";document.querySelector(".overlay").style.display="none"}
 </script>
 </body>
-</html>
+</html
