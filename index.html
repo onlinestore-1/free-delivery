@@ -51,6 +51,20 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
 }
 .categories div{text-align:center;min-width:80px}
 
+ .discount-badge{
+ position:absolute;
+ top:8px;
+ left:8px;
+ background:#e53935;
+ color:#fff;
+ font-size:12px;
+ padding:3px 6px;
+ border-radius:4px;
+}
+.card-img{
+ position:relative;
+}
+
 /* PRODUCTS */
 .grid{
  display:grid;grid-template-columns:repeat(2,1fr);
@@ -111,6 +125,41 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  </div>
   <div onclick="filter('Juices & cold drinks')">
   <img src="https://i.imgur.com/zPFz6LE.jpeg/80"><p>Juices & cold drinks</p>
+ </div>
+</div>
+
+ <h3>Discount For You</h3>
+<div class="grid">
+ <div class="card" onclick="location.href='mop-set.html'">
+  <div class="card-img">
+   <span class="discount-badge">-20%</span>
+   <img src="https://i.imgur.com/5sZ4FvA.jpeg">
+  </div>
+  <p>Mop Set Deluxe</p>
+ </div>
+
+ <div class="card" onclick="location.href='mop-set.html'">
+  <div class="card-img">
+   <span class="discount-badge">-15%</span>
+   <img src="https://i.imgur.com/7wZ6XZm.jpeg">
+  </div>
+  <p>Spin Mop</p>
+ </div>
+
+ <div class="card" onclick="location.href='mop-set.html'">
+  <div class="card-img">
+   <span class="discount-badge">-30%</span>
+   <img src="https://i.imgur.com/6X0n5yA.jpeg">
+  </div>
+  <p>Flat Mop</p>
+ </div>
+
+ <div class="card" onclick="location.href='mop-set.html'">
+  <div class="card-img">
+   <span class="discount-badge">-10%</span>
+   <img src="https://i.imgur.com/4JvGzYz.jpeg">
+  </div>
+  <p>Spray Mop</p>
  </div>
 </div>
 
