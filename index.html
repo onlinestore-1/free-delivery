@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,22 +10,107 @@
 <link rel="manifest" href="manifest.json">
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f4}
+body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:120px; /* space for topbar + categories */
+}
 
-/* TOP BAR */
+ /* HEADER WRAPPER */
+.header{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+}
+
+/* TOPBAR */
 .topbar{
  display:flex;
  align-items:center;
- background:#2874f0;
  padding:10px;
- color:white;
  gap:10px;
+ color:white;
 }
-.menu-btn{font-size:22px;cursor:pointer}
+
 .topbar input{
- flex:1;padding:8px;border:none;border-radius:4px
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:20px;
 }
-.cart-icon{font-size:22px}
+
+/* CATEGORIES */
+.categories{
+ display:flex;
+ overflow-x:auto;
+ gap:15px;
+ padding:8px 10px;
+
+ background:white;
+
+ .categories div.active p{
+  color:#2874f0;
+  font-weight:bold;
+}
+
+.categories div.active::after{
+  content:"";
+  display:block;
+  height:3px;
+  background:#2874f0;
+  margin-top:4px;
+  border-radius:3px;
+}
+
+ /* IMPORTANT: no gap effect */
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+
+ scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+ display:none;
+}
+
+.categories div{
+ text-align:center;
+ min-width:80px;
+ flex-shrink:0;
+}
+
+.categories img{
+ width:50px;
+ height:50px;
+ display:block;
+ margin:auto;
+ transition:0.3s;
+}
+
+.categories p{
+ font-size:12px;
+ margin-top:4px;
+ white-space:nowrap;
+}
+
+/* SCROLL EFFECT */
+.categories.hide-images img{
+ display:none;
+}
+
+.categories.hide-images p{
+ font-size:14px;
+ font-weight:bold;
+}
+
+/* BODY SPACE FIX */
+body{
+ padding-top:120px;
+}
 
 /* DRAWER */
 .drawer{
@@ -41,17 +126,196 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  background:rgba(0,0,0,.4);display:none
 }
 
-/* SLIDER */
-.slider img{width:100%;display:none}
-.slider img:first-child{display:block}
-
-/* CATEGORIES */
-.categories{
- display:flex;overflow-x:auto;background:#fff;padding:10px;gap:15px
+ /* ADS CONTAINER (SIDE SPACE LIKE IMAGE) */
+ .ads-container{
+  margin:12px;
+  overflow:hidden;   /* VERY IMPORTANT */
 }
-.categories div{text-align:center;min-width:80px}
 
- .discount-badge{
+/* SLIDER WRAPPER */
+.ads-slider{
+  display:flex;
+  width:100%;
+  transition:transform 0.5s ease-in-out; /* smooth sliding */
+}
+
+/* IMAGES */
+.ads-slider img{
+  width:100%;
+  flex-shrink:0;
+
+  aspect-ratio:16/8;   /* ✅ consistent banner shape */
+  object-fit:contain;  /* show full ad */
+
+  background:#fff;
+  border-radius:16px;
+}
+
+/* DOTS */
+.ads-dots{
+  text-align:center;
+  margin-top:8px;
+}
+
+.ads-dots span{
+  display:inline-block;
+  width:6px;
+  height:6px;
+  margin:3px;
+  background:#ccc;
+  border-radius:50%;
+}
+
+.ads-dots .active{
+  background:#000;
+  width:18px;
+  border-radius:10px;
+}
+
+ /* STILL LOOKING FOR THESE */
+.still-section{
+  background:linear-gradient(180deg,#dfe8f4,#eadcf7);
+  margin:12px;
+  padding:12px;
+  border-radius:14px;
+}
+
+.still-title{
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.still-scroll{
+  display:flex;
+  overflow-x:auto;
+  gap:14px;
+  padding-bottom:5px;
+}
+
+.still-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+ .still-card{
+  min-width:90px;
+  max-width:90px;
+  background:#fff;
+  border-radius:12px;
+  padding:6px;
+  text-align:center;
+  flex-shrink:0;
+  cursor:pointer;
+}
+
+.still-card img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.still-card p{
+  font-size:12px;
+  margin-top:4px;
+}
+
+/* 3 PRODUCTS BELOW */
+.still-3-products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:15px;
+}
+
+.still-box{
+  background:#e9f7f7;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.still-box img{
+  width:100%;
+  border-radius:12px;
+}
+
+.still-box h4{
+  margin:8px 0 3px;
+}
+
+.still-box p{
+  font-size:13px;
+  color:#555;
+}
+
+ /* BRANDS IN SPOTLIGHT */
+.brands-section{
+  background:linear-gradient(180deg,#dfe8f4,#eadcf7);
+  margin:12px;
+  border-radius:8px;
+  padding:10px;
+}
+
+.brands-title{
+  font-size:22px;
+  font-weight:bold;
+  color:#000; /* black text */
+  margin-bottom:10px;
+}
+
+.brands-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr); /* 2 per row */
+  gap:12px;
+}
+
+.brand-card{
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  text-align:center;
+  cursor:pointer;
+  padding-bottom:8px;
+}
+
+.brand-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+}
+
+.brand-card h4{
+  margin:6px 0 2px;
+  color:#000;
+}
+
+.brand-card p{
+  font-size:13px;
+  color:#000;
+}
+
+ /* DISCOUNT */
+.discount-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+.discount-card{
+ background:#fff;
+ border-radius:6px;
+ overflow:hidden;
+ cursor:pointer;
+}
+.discount-img{
+ position:relative;
+}
+.discount-img img{
+ width:100%;
+}
+.offer-badge{
  position:absolute;
  top:8px;
  left:8px;
@@ -61,8 +325,81 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  padding:3px 6px;
  border-radius:4px;
 }
-.card-img{
- position:relative;
+.discount-card p{
+ margin:8px;
+ font-weight:bold;
+}
+
+ /* SPOTLIGHT SECTION */
+.spotlight-section{
+  background: linear-gradient(180deg, #87c7f3, #a8d8f8);
+  margin:10px;
+  border-radius:6px;
+}
+
+.spotlight-header{
+  padding:10px;
+  font-weight:bold;
+  color:#000000; /* black text */
+  text-align:left;
+}
+
+.spotlight-grid{
+  background: linear-gradient(180deg, #87c7f3, #a8d8f8);
+  padding:10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.spotlight-card{
+  background:#fff; /* product grid NOT red */
+  border-radius:6px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.spotlight-card img{
+  width:100%;
+}
+
+.spotlight-card p{
+  margin:8px;
+  font-weight:bold;
+}
+
+ /* SUGGESTED FOR YOU - 7 IN 1 ROW SCROLL */
+.suggested-row{
+  display:flex;
+  overflow-x:auto;
+  gap:12px;
+  padding:10px;
+}
+
+.suggested-row::-webkit-scrollbar{
+  display:none;
+}
+
+.suggested-card{
+  min-width:130px;
+  max-width:130px;
+  background:#fff;
+  border-radius:10px;
+  padding:8px;
+  text-align:center;
+  flex-shrink:0;
+}
+
+.suggested-card img{
+  width:100%;
+  height:110px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.suggested-card p{
+  font-size:12px;
+  margin:4px 0;
 }
 
 /* PRODUCTS */
@@ -70,22 +407,136 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  display:grid;grid-template-columns:repeat(2,1fr);
  gap:10px;padding:10px
 }
+ 
 .card{
  background:#fff;padding:10px;border-radius:6px
 }
 .card img{width:100%}
 .buy{background:#ff9f00;border:none;width:100%;padding:6px}
+
+ /* NEW YOU MAY ALSO LIKE */
+.like-section{
+  background:linear-gradient(180deg, #F5D0 0%, #B4B35A);
+  margin:12px;
+  border-radius:10px;
+  padding:10px;
+}
+
+.like-title{
+  color:#000; /* black header */
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.like-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr); /* 3 columns */
+  gap:10px;
+}
+
+.like-card{
+  background:#fff;
+  border-radius:8px;
+  padding:6px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.like-card img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+.like-card p{
+  font-size:12px;
+  margin:4px 0;
+}
+
+ /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav div{
+ text-align:center;
+ font-size:12px;
+ color:#777;
+ cursor:pointer;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE (BLUE LIKE IMAGE) */
+.bottom-nav .active{
+ color:#2874f0;
+}
 </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
- <span class="menu-btn" onclick="openMenu()">☰</span>
- <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
- <i class="fa fa-cart-shopping cart-icon"
-  onclick="location.href='cart.html'"></i>
+ <!-- HEADER (TOPBAR + CATEGORIES COMBINED) -->
+<div class="header">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="menu-btn" onclick="openMenu()">☰</span>
+     <input type="search" placeholder="Search products..." onclick="openSearchPage()" readonly>
+    <i class="fa fa-cart-shopping cart-icon"
+      onclick="location.href='cart.html'"></i>
+  </div>
+
+  <!-- CATEGORIES -->
+ <div class="categories">
+
+  <div onclick="openCategory('foryou', this)">
+    <img src="https://i.postimg.cc/9QQD1LLR/fasn1.jpg">
+    <p>Foryou</p>
+  </div>
+
+  <div onclick="openCategory('fashion', this)">
+    <img src="https://i.postimg.cc/9QQD1LLR/fasn1.jpg">
+    <p>Fashion</p>
+  </div>
+
+  <div onclick="openCategory('chakula', this)">
+    <img src="https://i.postimg.cc/xCjXcgBj/safi5.jpg">
+    <p>Chakula & afya</p>
+  </div>
+
+  <div onclick="openCategory('muhimu', this)">
+    <img src="https://i.postimg.cc/rpMGBtqB/a11.png">
+    <p>Muhimu</p>
+  </div>
+
+  <div onclick="openCategory('mobile', this)">
+    <img src="https://i.postimg.cc/1RrZWsn9/cm3.png">
+    <p>Mobile</p>
+  </div>
+
+  <div onclick="openCategory('electronics',this)">
+    <img src="https://i.postimg.cc/xjz5hmm5/a12.png">
+    <p>Electronics</p>
+  </div>
+ </div>
+
 </div>
 
 <!-- DRAWER -->
@@ -93,7 +544,7 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  <div class="drawer-header">Login & Signup</div>
  <a href="#">SuperCoin Zone</a>
  <a href="#">All Categories</a>
- <a href="orders.html">My Orders</a>
+ <a href="ers.html">My Orders</a>
  <a href="cart.html">My Cart</a>
  <a href="#">My Wishlist</a>
  <a href="#">My Account</a>
@@ -101,143 +552,603 @@ body{margin:0;font-family:Arial;background:#f4f4f4}
  <a href="#">Legal</a>
 </div>
 <div class="overlay" onclick="closeMenu()"></div>
+ 
+<div id="dynamicContent">
+ <!-- ADS -->
+<div class="ads-container">
+  
+  <div class="ads-slider" id="adsSlider">
+    <img src="https://i.postimg.cc/9Ms8L4k5/aaa8.png">
+    <img src="https://i.postimg.cc/Gm2zRmrG/aaa6.png">
+    <img src="https://i.postimg.cc/3JTyVwYv/aaa4.png">
+    <img src="https://i.postimg.cc/02rcRN95/aaa7.png">
+  </div>
 
-<!-- ADS -->
-<div class="slider">
- <img src="https://i.imgur.com/j6JWI5n.png/600x200?text=SALE">
- <img src="https://i.imgur.com/3ZFgqAY.png/600x200?text=SALE">
- <img src="https://i.imgur.com/M4bTgH1.png/600x200?text=OFFER">
+  <!-- DOTS -->
+  <div class="ads-dots" id="adsDots"></div>
+
 </div>
 
-<!-- CATEGORIES -->
-<div class="categories">
- <div onclick="filter('Fashion')">
-  <img src="https://i.imgur.com/Trbu30c.jpeg/80"><p>Fashion</p>
- </div>
- <div onclick="filter('Chakula & afya')">
-  <img src="https://i.imgur.com/Bx32Xdq.jpeg/80"><p>Chakula & afya</p>
- </div>
- <div onclick="filter('Muhimu')">
-  <img src="https://i.imgur.com/mFLFlEV.jpeg/80"><p>Muhimu</p>
- </div>
- <div onclick="filter('Ice-cream')">
-  <img src="https://i.imgur.com/GrA2VA5.jpeg/80"><p>Ice-cream</p>
- </div>
-  <div onclick="filter('Juices & cold drinks')">
-  <img src="https://i.imgur.com/zPFz6LE.jpeg/80"><p>Juices & cold drinks</p>
- </div>
+ <!-- STILL LOOKING FOR THESE -->
+<div class="still-section">
+
+<div class="still-title">Still looking for these?</div>
+
+<div class="still-scroll" id="stillProducts"></div>
+
+
+<!-- 3 PRODUCTS FROM CHAKULA / MOBILE / ELECTRONICS -->
+ <div class="still-3-products">
+
+  <!-- PHONE -->
+  <div class="still-box" onclick="location.href='shop.html'">
+    <img src="https://i.postimg.cc/yNCwsb2s/sam3.jpg">
+    <h4>Shop now</h4>
+    <p>Quality redefined</p>
+  </div>
+
+  <!-- EARPOD -->
+  <div class="still-box" onclick="location.href='flat.html'">
+    <img src="https://i.postimg.cc/x1RgkjdF/aa46.jpg">
+    <h4>Flat 66% Off</h4>
+    <p>Limited time deal</p>
+  </div>
+
+  <!-- ROYCO -->
+  <div class="still-box" onclick="location.href='up.html'">
+    <img src="https://i.postimg.cc/HL6SsHWp/royco1.jpg">
+    <h4>Up to 25% Off</h4>
+    <p>Bomba & Sana</p>
+  </div>
+
+</div>
+
+</div>
+
+ <!-- BRANDS IN SPOTLIGHT -->
+<div class="brands-section">
+
+  <div class="brands-title">Brands in Spotlight</div>
+
+  <div class="brands-grid">
+
+    <div class="brand-card" onclick="location.href='just.html'">
+      <img src="https://i.postimg.cc/DwMMYkjL/aa86.jpg">
+      <h4>Just TZS 20,000</h4>
+      <p>Lowest price ever</p>
+    </div>
+
+    <div class="brand-card" onclick="location.href='special.html'">
+      <img src="https://i.postimg.cc/3wsPS5S2/a52.jpg">
+      <h4>Special Price</h4>
+      <p>Grab now</p>
+    </div>
+
+    <div class="brand-card" onclick="location.href='off.html'">
+      <img src="https://i.postimg.cc/tC4mz4qk/a41.jpg">
+      <h4>Flat 70% Off</h4>
+      <p>Limited deal</p>
+    </div>
+
+    <div class="brand-card" onclick="location.href='display.html'">
+      <img src="https://i.postimg.cc/9XJLzHdT/a34.jpg">
+      <h4>Just TZS 50,000</h4>
+      <p>AMOLED Display</p>
+    </div>
+
+    <div class="brand-card" onclick="location.href='min.html'">
+      <img src="https://i.postimg.cc/qv8nh8fM/a58.jpg">
+      <h4>Min 70% Off</h4>
+      <p>Strong & durable</p>
+    </div>
+
+    <div class="brand-card" onclick="location.href='today.html'">
+      <img src="https://i.postimg.cc/xTm60xR1/aa31.jpg">
+      <h4>Flat 80% Off</h4>
+      <p>Today’s deal</p>
+    </div>
+
+  </div>
 </div>
 
  <h3>Discount For You</h3>
-<div class="grid">
- <div class="card" onclick="location.href='mop-set.html'">
-  <div class="card-img">
-   <span class="discount-badge">-20%</span>
-   <img src="https://i.imgur.com/5sZ4FvA.jpeg">
+
+<div class="discount-grid">
+ <!-- Gym -->
+ <div class="discount-card" onclick="location.href='gloves.html'">
+  <div class="discount-img">
+   <span class="offer-badge">-20%</span>
+   <img src="https://i.postimg.cc/d0Yv01gD/gloves1.jpg">
   </div>
-  <p>Mop Set Deluxe</p>
+  <p>Gym Gloves</p>
  </div>
 
- <div class="card" onclick="location.href='mop-set.html'">
-  <div class="card-img">
-   <span class="discount-badge">-15%</span>
-   <img src="https://i.imgur.com/7wZ6XZm.jpeg">
+ <!-- Sendals -->
+ <div class="discount-card" onclick="location.href='sendals.html'">
+  <div class="discount-img">
+   <span class="offer-badge">-25%</span>
+   <img src="https://i.postimg.cc/4yT3kPZQ/send1.jpg">
   </div>
-  <p>Spin Mop</p>
+  <p>Sendals</p>
  </div>
 
- <div class="card" onclick="location.href='mop-set.html'">
-  <div class="card-img">
-   <span class="discount-badge">-30%</span>
-   <img src="https://i.imgur.com/6X0n5yA.jpeg">
+ <!-- True Wireless -->
+ <div class="discount-card" onclick="location.href='true-wireless.html'">
+  <div class="discount-img">
+   <span class="offer-badge">-30%</span>
+   <img src="https://i.postimg.cc/9fZ55hfn/aa56.jpg">
   </div>
-  <p>Flat Mop</p>
+  <p>Imetumika DUBAI Tu</p>
  </div>
 
- <div class="card" onclick="location.href='mop-set.html'">
-  <div class="card-img">
-   <span class="discount-badge">-10%</span>
-   <img src="https://i.imgur.com/4JvGzYz.jpeg">
+ <!-- Nguo -->
+ <div class="discount-card" onclick="location.href='women-dresses.html'">
+  <div class="discount-img">
+   <span class="offer-badge">-15%</span>
+   <img src="https://i.postimg.cc/J4v212Sy/aa10.jpg">
   </div>
-  <p>Spray Mop</p>
+  <p>nguo kutoka india</p>
  </div>
 </div>
 
-<h3>Products</h3>
-<div id="products" class="grid"></div>
+ <div class="spotlight-section">
+
+  <div class="spotlight-header">
+    Spotlight’s On
+  </div>
+
+  <div class="spotlight-grid">
+
+    <div class="spotlight-card" onclick="location.href='shoes.html'">
+      <img src="https://i.postimg.cc/tT45d38v/kia3.jpg">
+      <p>Shoes(Viatu)</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='umeme.html'">
+      <img src="https://i.postimg.cc/MX2VLVrv/cab2.jpg">
+      <p>Vifaa vya umeme</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='bags.html'">
+      <img src="https://i.postimg.cc/Kz35sGvV/bag1.jpg">
+      <p>Bags</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='nunua.html'">
+      <img src="https://i.postimg.cc/zfb5jzzW/1kg.jpg">
+      <p>Nunua sasa</p>
+    </div>
+
+  </div>
+</div>
+
+ <h3>Top Selection</h3>
+<div class="grid">
+  <div class="card" onclick="goTop('sports.html')">
+    <img src="https://i.postimg.cc/TwcPxmwv/liva1.jpg">
+    <p>Sports</p>
+  </div>
+
+  <div class="card" onclick="goTop('kofia.html')">
+    <img src="https://i.postimg.cc/4xCbmkPT/kof2.jpg">
+    <p>Kofia Mpya</p>
+  </div>
+
+  <div class="card" onclick="goTop('tws.html')">
+    <img src="https://i.postimg.cc/x1RgkjdF/aa46.jpg">
+    <p>True Wireless</p>
+  </div>
+
+  <div class="card" onclick="goTop('women.html')">
+    <img src="https://i.postimg.cc/dt9G6HKw/dr1.jpg">
+    <p>Women Dress</p>
+  </div>
+</div>
+
+<!-- NEW YOU MAY ALSO LIKE -->
+<div class="like-section">
+
+  <div class="like-title">You May Also Like</div>
+
+  <div id="like" class="like-grid"></div>
+
+</div>
 
 <h3>Suggested For You</h3>
-<div id="suggested" class="grid"></div>
+<div id="suggested" class="suggested-row"></div>
 
-<h3>You May Also Like</h3>
-<div id="like" class="grid"></div>
+ <h3>Products</h3>
+<div id="products" class="grid"></div>
+</div>
 
 <script>
-const products=[
- {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/b4T6KVn.jpeg/200",cat:"Fashion",desc:"Cotton T-shirt"},
- {id:2,name:"Dress",price:22,img:"https://i.imgur.com/F9T6D7U.jpeg/200",cat:"Fashion",desc:"Ladies dress"},
- {id:3,name:"Sukari 1kg",price:30,img:"https://i.imgur.com/1EFgnRl.jpeg/200",cat:"Chakula & afya",desc:"Sukari 1kg"},
- {id:4,name:"Mafuta ya kupikia",price:45,img:"https://i.imgur.com/4B7cTjc.jpeg/200",cat:"Chakula & afya",desc:"Pika kisasa na korie"},
- {id:5,name:"Chumvi",price:30,img:"https://i.imgur.com/e4CXmHr.jpeg/200",cat:"Chakula & afya",desc:"chumvi bora"},
- {id:6,name:"Blue Band",price:30,img:"https://i.imgur.com/PnEvGZN.jpeg/200",cat:"Chakula & afya",desc:"Blue Band bora"},
- {id:7,name:"Tomato sauce",price:20,img:"https://i.imgur.com/IqhRkL7.jpeg/200",cat:"Chakula & afya",desc:"Tomato sauce tamu"},
- {id:8,name:"Soy sauce",price:10,img:"https://i.imgur.com/CqraWiO.jpeg/200",cat:"Chakula & afya",desc:"Jipatie soy sauce"},
- {id:9,name:"Baking powder",price:10,img:"https://i.imgur.com/WlfRjNu.jpeg/200",cat:"Chakula & afya",desc:"kwa mandazi"},
- {id:10,name:"Royco",price:14,img:"https://i.imgur.com/rmXvXwO.jpeg/200",cat:"Chakula & afya",desc:"Royco mchuzi mix"},
- {id:11,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",cat:"Juices & cold drinks",desc:"Coca Cola"},
- {id:12,name:"pepsi",price:23,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",cat:"Juices & cold drinks",desc:"pepsi"},
- {id:13,name:"Splash",price:12,img:"https://i.imgur.com/4ifKGQC.jpeg/200",cat:"Ice-cream",desc:"Splash sweet flavour"},
- {id:14,name:"Bubble gum",price:15,img:"https://i.imgur.com/jJyMg1u.jpeg/200",cat:"Ice-cream",desc:"Bubble gum flavoured ice lolly"},
- {id:15,name:"Ballcone",price:13,img:"https://i.imgur.com/YU7yVMc.jpeg/200",cat:"Ice-cream",desc:"Ballcone flavoured ice cream"},
- {id:16,name:"Cherry",price:13,img:"https://i.imgur.com/Ax4J2uH.jpeg/200",cat:"Ice-cream",desc:"Cherry flavoured ice lolly"},
- {id:17,name:"Cherry Bar",price:13,img:"https://i.imgur.com/QZ8B1VC.jpeg/200",cat:"Ice-cream",desc:"Cherry flavoured ice bar"},
- {id:18,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",cat:"Ice-cream",desc:"Caramello flavoured ice cream"},
- {id:19,name:"Doffi",price:17,img:"https://i.imgur.com/hD9g7L2.jpeg/200",cat:"Muhimu",desc:"Washing powder"},
- {id:20,name:"Jet",price:19,img:"https://i.imgur.com/OoGiHtj.jpeg/200",cat:"Muhimu",desc:"Dish washing liquid soap"},
- {id:21,name:"Jet",price:18,img:"https://i.imgur.com/q36RjQ2.jpeg/200",cat:"Muhimu",desc:"Dish washing liquid soap"},
- {id:22,name:"Vaseline Jelly",price:14,img:"https://i.imgur.com/iFw39jh.jpeg/200",cat:"Muhimu",desc:"Body lotion"},
- {id:23,name:"Rungu",price:14,img:"https://i.imgur.com/KIi9LUL.jpeg/200",cat:"Muhimu",desc:"Ya kuua wadudu warukao na wanaotambaa"},
- {id:24,name:"Professor",price:15,img:"https://i.imgur.com/okplIfF.jpeg/200",cat:"Muhimu",desc:"Professor Counter Book 3Q"},
- {id:25,name:"Vaseline",price:16,img:"https://i.imgur.com/2V7rzh7.jpeg/200",cat:"Muhimu",desc:"Pure petroleum jelly"},
- {id:26,name:"Rexa",price:17,img:"https://i.imgur.com/3EPfv80.jpeg/200",cat:"Muhimu",desc:"Rexa toilet paper soft and white"},
- {id:27,name:"Msomi",price:15,img:"https://i.imgur.com/zU2mjIE.jpeg/200",cat:"Muhimu",desc:"Msomi Exercise Book"},
- {id:28,name:"OMO",price:18,img:"https://i.imgur.com/v0eeorr.jpeg/200",cat:"Muhimu",desc:"Ondoa madoa sugu"},
- {id:29,name:"Niceone",price:18,img:"https://i.imgur.com/7nmPGbq.jpeg/200",cat:"Muhimu",desc:"Ondoa madoa sugu"},
- {id:30,name:"Hiper razor",price:19,img:"https://i.imgur.com/zIJlaP3.jpeg/200",cat:"Muhimu",desc:"kiwembe bora"},
- {id:31,name:"Afya Maji",price:23,img:"https://i.imgur.com/u9dkajs.jpeg/200",cat:"Juices & cold drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini"},
- {id:32,name:"u-fresh orange",price:23,img:"https://i.imgur.com/k42X2gl.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
- {id:33,name:"u-fresh power",price:23,img:"https://i.imgur.com/y1qJelw.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
- {id:34,name:"u-fresh pineapple",price:23,img:"https://i.imgur.com/GcVEME3.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
- {id:35,name:"Exercise Book",price:19,img:"https://i.imgur.com/AQrSAGW.jpeg/200",cat:"Muhimu",desc:"Daftari mistali mikubwa na midogo"},
- {id:36,name:"Exercise Book",price:19,img:"https://i.imgur.com/ihIcg3h.jpeg/200",cat:"Muhimu",desc:"Daftari la kuandikia page 100"},
- {id:37,name:"Exercise Book",price:17,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",cat:"Muhimu",desc:"Daftari la kuandikia page 32"},
- {id:38,name:"Hand soap",price:17,img:"https://i.imgur.com/Mi3AaMB.jpeg/200",cat:"Muhimu",desc:"Liduid hand wash"},
- {id:39,name:"u-fresh passion",price:20,img:"https://i.imgur.com/9uhn4hj.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
- {id:40,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"}
+ const products = JSON.parse(localStorage.getItem("allProducts")) || [
+ {id:1,name:"Blue T-Shirt",price:12,img:"https://i.imgur.com/M7lVvkH.jpeg",type:"tshirt",desc:"Men Washed Relaxed Fit Crew" },
+ {id:405,name:"HP Laptop",price:25,img:"https://i.imgur.com/Y5W6m6J.jpeg",type:"laptop",desc:"HP ProBook 4530s 15.6 Laptop Notebook Intel i3"},
+ {id:35,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:309,name:"Google Pixel",price:40,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB"}
 ];
+
+localStorage.setItem("allProducts", JSON.stringify(products));
+
+ const categoryTemplates = {
+
+  foryou: document.getElementById("dynamicContent").innerHTML,
+
+  fashion: `
+    <div class="ads-container">
+      <img src="https://i.postimg.cc/9QQD1LLR/fasn1.jpg" style="width:100%;border-radius:16px;">
+    </div>
+
+    <h3>Fashion Deals</h3>
+    <div class="grid">
+      ${products
+        .filter(p => p.type === "tshirt" || p.type === "jezi")
+        .map(p => `
+          <div class="card">
+            <img src="${p.img}">
+            <p>${p.name}</p>
+            <b>${formatPrice(p.price)}</b>
+          </div>
+        `).join("")}
+    </div>
+  `,
+
+  mobile: `
+    <div class="ads-container">
+      <img src="https://i.postimg.cc/1RrZWsn9/cm3.png" style="width:100%;border-radius:16px;">
+    </div>
+
+    <h3>Mobile Phones</h3>
+    <div class="grid">
+      ${products
+        .filter(p => p.type === "google" || p.type === "laptop")
+        .map(p => `
+          <div class="card">
+            <img src="${p.img}">
+            <p>${p.name}</p>
+            <b>${formatPrice(p.price)}</b>
+          </div>
+        `).join("")}
+    </div>
+  `,
+
+  electronics: `
+    <h3>Electronics</h3>
+    <div class="grid">
+      ${products.map(p => `
+        <div class="card">
+          <img src="${p.img}">
+          <p>${p.name}</p>
+          <b>${formatPrice(p.price)}</b>
+        </div>
+      `).join("")}
+    </div>
+  `
+};
+
+ function showStillProducts(){
+
+  let lastType = localStorage.getItem("lastType");
+  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
+
+  let result = [];
+
+  // 🔥 PRIORITY 1: CATEGORY PRODUCTS
+  if(lastType){
+    let categoryProducts = products.filter(p => p.type === lastType);
+    result.push(...categoryProducts);
+  }
+
+  // 🔥 PRIORITY 2: LAST VIEWED
+  viewed.forEach(id=>{
+    let p = products.find(x=>x.id == id);
+    if(p && !result.find(r=>r.id === p.id)){
+      result.unshift(p); // put on top
+    }
+  });
+
+  // 🔥 FILL REMAINING
+  let shuffled = [...products].sort(()=>0.5 - Math.random());
+
+  shuffled.forEach(p=>{
+    if(!result.find(r=>r.id === p.id)){
+      result.push(p);
+    }
+    if(result.length === 10) return;
+  });
+
+  result = result.slice(0,10);
+
+  document.getElementById("stillProducts").innerHTML =
+    result.map(p=>`
+      <div class="still-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+      </div>
+    `).join("");
+}
+
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
 
 function draw(list,id){
  document.getElementById(id).innerHTML=list.map(p=>`
  <div class="card">
   <img src="${p.img}" onclick="openProduct(${p.id})">
   <p>${p.name}</p>
-  <b>$${p.price}</b>
-  <button class="buy" onclick="openProduct(${p.id})">Buy Now</button>
+  <b>${formatPrice(p.price)}</b>
  </div>`).join("");
 }
  
 draw(products,"products");
 draw(products.slice(0,2),"suggested");
-draw(products.slice(1),"like");
+  function showYouMayAlsoLike(){
 
-function openProduct(id){
- localStorage.setItem("pid",id);
- location.href="product.html";
+  const categories = [
+
+    {
+      name: "Sukari",
+      img: "https://i.postimg.cc/WbBkpG8D/1kg.jpg",
+      page: "sugar.html"
+    },
+
+    {
+      name: "psg",
+      img: "https://i.postimg.cc/TPswcrpX/ab3.jpg",
+      page: "psg.html"
+    },
+
+    {
+      name: "Cargo pant",
+      img: "https://i.imgur.com/HPRwTKJ.jpeg",
+      page: "cargo.html"
+    },
+
+    {
+      name: "u-fresh",
+      img: "https://i.postimg.cc/k4mZkh2j/u1.jpg",
+      page: "fresh.html"
+    },
+
+    {
+      name: "Ice cream",
+      img: "https://i.postimg.cc/zGLGB3xv/ice9.jpg",
+      page: "ice.html"
+    },
+
+    {
+      name: "BodyLuxe",
+      img: "https://i.postimg.cc/CM3SPpDq/a19.jpg",
+      page: "body.html"
+    }
+
+  ];
+
+  document.getElementById("like").innerHTML =
+    categories.map(c=>`
+      <div class="like-card" onclick="location.href='${c.page}'">
+        <img src="${c.img}">
+        <p>${c.name}</p>
+      </div>
+    `).join("");
+}
+
+ function showSuggested(){
+
+  let products = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+  // shuffle products randomly
+  let shuffled = [...products].sort(()=>0.5 - Math.random());
+
+  // take ONLY 7 products
+  let selected = shuffled.slice(0,7);
+
+  document.getElementById("suggested").innerHTML =
+    selected.map(p=>`
+      <div class="suggested-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${formatPrice(p.price)}</b>
+      </div>
+    `).join("");
+}
+
+ function openSearchPage(){
+  location.href = "search.html";
+}
+
+ function openCategory(type, el){
+
+  // save current category
+  localStorage.setItem("activeCategory", type);
+
+  // remove active class
+  document.querySelectorAll(".categories div")
+    .forEach(d => d.classList.remove("active"));
+
+  // add active to clicked
+  el.classList.add("active");
+
+  // change content
+  document.getElementById("dynamicContent").innerHTML =
+    categoryTemplates[type] || categoryTemplates["foryou"];
+}
+
+ function openProduct(id){
+
+  localStorage.setItem("pid",id);
+
+  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
+
+  viewed = viewed.filter(p => p != id);
+  viewed.unshift(id);
+  viewed = viewed.slice(0,10);
+
+  localStorage.setItem("lastViewed", JSON.stringify(viewed));
+
+  // 🔥 INSTANT UPDATE BEFORE PAGE CHANGE
+  showStillProducts();
+  showYouMayAlsoLike();
+
+  location.href = "product.html";
 }
 function filter(c){draw(products.filter(p=>p.cat==c),"products")}
 function search(v){draw(products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"products")}
 function openMenu(){drawer.style.left="0";document.querySelector(".overlay").style.display="block"}
 function closeMenu(){drawer.style.left="-260px";document.querySelector(".overlay").style.display="none"}
+
+ function getRandomProducts(arr, count){
+  let shuffled = [...arr].sort(()=>0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+function goTop(page){
+  location.href = page;
+}
+
+ /* ADS SLIDER (SMOOTH SLIDE) */
+ let index = 0;
+
+const slider = document.getElementById("adsSlider");
+const images = document.querySelectorAll("#adsSlider img");
+const dotsContainer = document.getElementById("adsDots");
+
+/* CREATE DOTS */
+images.forEach((_, i) => {
+  let dot = document.createElement("span");
+  if(i === 0) dot.classList.add("active");
+  dotsContainer.appendChild(dot);
+});
+
+const dots = dotsContainer.querySelectorAll("span");
+
+function slideAds(){
+
+  index++;
+
+  if(index >= images.length){
+    index = 0;
+  }
+
+  slider.style.transform = `translateX(-${index * 100}%)`;
+
+  dots.forEach(d => d.classList.remove("active"));
+  dots[index].classList.add("active");
+}
+
+/* AUTO SLIDE */
+setInterval(slideAds, 3000);
+
+ let lastScroll = 0;
+
+window.addEventListener("scroll", function(){
+
+  let currentScroll = window.pageYOffset;
+  let categories = document.querySelector(".categories");
+
+  if(currentScroll > 50){
+    categories.classList.add("hide-images");
+  }else{
+    categories.classList.remove("hide-images");
+  }
+
+});
+
+ function autoUpdateAll(){
+
+  // reload products from storage
+   let products = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+  // re-render everything
+  draw(products,"products");
+  showSuggested();
+
+  showStillProducts();
+  showYouMayAlsoLike();
+
+}
+ window.addEventListener("load", autoUpdateAll);
+ window.addEventListener("pageshow", function(){
+  autoUpdateAll();
+});
+ window.addEventListener("storage", function(){
+  autoUpdateAll();
+});
+
+ function goPage(page){
+  location.href = page;
+}
+
+/* SET ACTIVE PAGE (BLUE COLOR) */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/"){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+
+}
+
+window.addEventListener("load", setActiveNav);
+
+ // run on page load
+window.addEventListener("load", showSuggested);
+
+// auto update every 5 seconds
+setInterval(showSuggested, 60000);
+
+ window.addEventListener("load", () => {
+
+  let saved = localStorage.getItem("activeCategory") || "foryou";
+
+  let cats = document.querySelectorAll(".categories div");
+
+  cats.forEach(c => {
+    if(c.getAttribute("onclick").includes(saved)){
+      c.classList.add("active");
+    }
+  });
+
+  document.getElementById("dynamicContent").innerHTML =
+    categoryTemplates[saved];
+});
 </script>
+
+ <!-- BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+
+  <div id="nav-home" onclick="goPage('index.html')">
+    <i class="fa fa-home"></i>
+    Home
+  </div>
+
+  <div id="nav-category" onclick="goPage('category.html')">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </div>
+
+  <div id="nav-account" onclick="goPage('tiny.html')">
+    <i class="fa fa-user"></i>
+    Account
+  </div>
+
+  <div id="nav-cart" onclick="goPage('cart.html')">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </div>
+
+</div>
 </body>
 </html
